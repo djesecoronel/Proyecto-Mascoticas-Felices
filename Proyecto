@@ -1,0 +1,113 @@
+import React, { useState } from 'react';
+import './App.css'; // Asegúrate de importar tu archivo de hoja de estilos si lo tienes
+
+const App = () => {
+  const [activeSection, setActiveSection] = useState('inicio');
+  const [quienesSomosContent, setQuienesSomosContent] = useState(null);
+  const [compraVentaExpanded, setCompraVentaExpanded] = useState(false);
+  const [adopcionExpanded, setAdopcionExpanded] = useState(false);
+
+  const handleQuienesSomosClick = () => {
+    setQuienesSomosContent(`Compra y Venta de Mascotas: Cuando estás listo para ampliar tu familia con una nueva mascota, estamos aquí para ayudarte a encontrar a tu compañero ideal. Nos aseguramos de que todas las mascotas que pasan por nuestras manos sean tratadas con amor y cuidado.
+
+    Venta de Fármacos: Contamos con una amplia selección de medicamentos y tratamientos para mantener a tus mascotas saludables. Nuestro equipo de profesionales te asesorará sobre las opciones adecuadas para el bienestar de tu amigo peludo.
+
+    Accesorios de Calidad: Ofrecemos una variedad de accesorios y productos para el cuidado de mascotas, desde alimentos y juguetes hasta ropa y artículos de higiene. Cada producto en nuestra tienda se selecciona con el bienestar y la comodidad de tus mascotas en mente.
+
+    En MascoticasFelices, nos enorgullece brindar atención de alta calidad y compasión a todas las mascotas que atendemos. Nuestro equipo de veterinarios y personal dedicado trabaja incansablemente para garantizar que tu compañero peludo reciba el amor y la atención que merece.
+    Estamos aquí para apoyarte en cada paso del viaje con tus mascotas. ¡Bienvenidos a la familia de MascoticasFelices!`);
+    setActiveSection('quienes-somos');
+  };
+
+  const handleInicioClick = () => {
+    setQuienesSomosContent(null);
+    setActiveSection('inicio');
+  };
+
+  const toggleCompraVenta = () => {
+    setCompraVentaExpanded(!compraVentaExpanded);
+  };
+
+  const toggleAdopcion = () => {
+    setAdopcionExpanded(!adopcionExpanded);
+  };
+
+  const isSectionActive = (section) => activeSection === section;
+
+  return (
+    <div style={{ backgroundColor: '#B0E0E6', height: '100vh', position: 'relative' }}>
+      <img
+       src="https://imgur.com/a/c0ogIC1" alt=""// Reemplaza con la ruta correcta de tu imagen
+        style={{
+          position: 'absolute',
+          top: '10px', // Ajusta la posición vertical según tus necesidades
+          right: '10px', // Ajusta la posición horizontal según tus necesidades
+        }}
+      />
+
+      <h1 style={{ fontFamily: 'Black Italic', fontSize: '36px', textAlign: 'center' }}>Bienvenidos</h1>
+      <nav style={{ textAlign: 'center' }}>
+        <ul style={{ listStyle: 'none', display: 'flex', justifyContent: 'center', padding: 0 }}>
+          <li style={{ marginRight: '20px' }}>
+            <a href="#inicio" onClick={handleInicioClick}>Inicio</a>
+          </li>
+		  <li style={{ marginRight: '20px' }}>
+            <a href="#quienes-somos" onClick={handleQuienesSomosClick}>¿Quiénes somos?</a>
+          </li>
+          <li style={{ marginRight: '20px' }}>
+            <a href="#compra-venta" onClick={toggleCompraVenta}>Compra y Venta</a>
+            {compraVentaExpanded && (
+              <ul>
+                <li><a href="#productos">Productos para Mascotas</a></li>
+                <li><a href="#farmacia">Farmacia</a></li>
+              </ul>
+            )}
+          </li>
+          <li style={{ marginRight: '20px' }}>
+            <a href="#adopcion" onClick={toggleAdopcion}>Adopción</a>
+            {adopcionExpanded && (
+              <ul>
+                <li><a href="#dar-adopcion">Dar en Adopción</a></li>
+                <li><a href="#adoptar">Adoptar una Mascota</a></li>
+              </ul>
+            )}
+          </li>
+        </ul>
+      </nav>
+
+      {isSectionActive('inicio') && (
+        /* Contenido de la sección "Inicio" */
+        <div>
+          <h2>Inicio</h2>
+          {/* Agrega aquí el contenido específico de la sección de Inicio */}
+        </div>
+      )}
+
+      {isSectionActive('quienes-somos') && (
+        /* Contenido de la sección "¿Quiénes somos?" */
+        <div>
+          <h2>¿Quiénes somos?</h2>
+          {quienesSomosContent && <p>{quienesSomosContent}</p>}
+        </div>
+      )}
+
+      {isSectionActive('compra-venta') && (
+        /* Contenido de la sección "Compra y Venta" */
+        <div>
+          <h2>Compra y Venta</h2>
+          {/* Agrega aquí el contenido de la sección de Compra y Venta */}
+        </div>
+      )}
+
+      {isSectionActive('adopcion') && (
+        /* Contenido de la sección "Adopción" */
+        <div>
+          <h2>Adopción</h2>
+          {/* Agrega aquí el contenido de la sección de Adopción */}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default App;
